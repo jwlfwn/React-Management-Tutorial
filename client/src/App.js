@@ -2,58 +2,51 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Customer from './components/Customer'
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
+// import Paper from '@mui/material/Paper';
+// import Table from '@mui/material/core/Table';
+// import TableHead from '@mui/material/core/TableHead';
+// import TableBody from '@mui/material/core/TableBody';
+// import TableRow from '@mui/material/core/TableRow';
+// import TableCell from '@mui/material/core/TableCell';
+// import { withStyles } from '@mui/material/core/styles';
+import { withStyles } from '@mui/styles';
+import { Paper, Table, TableHead, TableBody, TableRow, TableCell } from "@mui/material";
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: "auto"
-  },
-  table: {
-    minWidth: 1080
+// const styles = theme => ({
+//       root: {
+//         width: '100%',
+//         // marginTop: theme.spacing.unit * 3,
+//         overflowX: "auto"
+//       },
+//       table: {
+//         minWidth: 1080
+//       }
+//     })
+
+class App extends React.Component{
+  
+  state = {
+    customers: ""
   }
-})
 
-const customers = [
-{
-  'id': 1,
-  'image': 'https://placeimg.com/64/64/1',
-  'name': '홍길동',
-  'birthday': '961222',
-  'gender': '남자',
-  'job': '대학생'
-},
-{
-  'id': 2,
-  'image': 'https://placeimg.com/64/64/2',
-  'name': '이순신',
-  'birthday': '9615722',
-  'gender': '남자',
-  'job': '프로그래머'
-},
-{
-  'id': 3,
-  'image': 'https://placeimg.com/64/64/3',
-  'name': '나동빈',
-  'birthday': '948222',
-  'gender': '남자',
-  'job': '디자이너'
-}
-]
+  componentDidMount(){
+    this.callApi()
+      .then(res => this.setState({customers: res}))
+      .catch(err => console.log(err));
+  }
 
-class App extends Component{
+  callApi = async () => {
+    const response = await fetch('/api/customers');
+    const body = await response.json();
+    return body;
+  }
+
   render(){
+    
     const { classes } = this.props;
     return (
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
+      <Paper className="root">
+        <Table className="table">
           <TableHead>
             <TableRow>
               <TableCell>번호</TableCell>
@@ -65,7 +58,8 @@ class App extends Component{
             </TableRow>
           </TableHead>
           <TableBody>
-            {customers.map(c => {return (<Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday}  gender={c.gender} job={c.job} />)})}
+            {this.state.customers ? this.state.customers.map(c => {return (<Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday}  gender={c.gender} job={c.job} />)
+            }) : ""}
           </TableBody>
         </Table>
       </Paper>
@@ -73,4 +67,4 @@ class App extends Component{
   }
 }
 
-export default withStyles(styles)(App);
+export default App;

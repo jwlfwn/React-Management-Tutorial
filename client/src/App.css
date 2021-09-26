@@ -1,3 +1,10 @@
 .gray-background{
   background: darkgray;
 }
+.root {
+  width: '100%';
+  overflowX: "auto";
+}
+.table {
+  minWidth: 1080;
+}
