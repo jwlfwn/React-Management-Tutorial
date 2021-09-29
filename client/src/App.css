@@ -3,11 +3,24 @@
 }
 .root {
   width: '100%';
-  overflowX: "auto";
+  min-width: 1080px;
 }
 .table {
-  minWidth: 1080;
+  min-width: 1080px;
 }
 .progress {
   margin-top : 10px;
+}
+.tableHead{
+  font-size: 1.0rem;
+}
+.menu{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+.paper{
+  margin-left: 18px;
+  margin-right: 18px;
 }

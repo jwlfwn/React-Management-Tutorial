@@ -8,6 +8,7 @@
         "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
     },
     "dependencies": {
+        "@mui/icons-material": "^5.0.1",
         "@mui/styles": "^5.0.1",
         "body-parser": "^1.18.3",
         "express": "^4.17.1",
